@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package gameShipRpc;
+
+service gameShipRpc {
+  rpc NewGame (NewGameRequest) returns (NewGameResponse);
+  rpc PlayerJoin (PlayerJoinRequest) returns (PlayerJoinResponse);
+  rpc PlayerStrikeBox (PlayerStrikeBoxRequest) returns (PlayerStrikeBoxResponse);
+  rpc GameStart (GameStartRequest) returns (GameStartResponse);
+}
+
+message NewGameRequest {
+  string creatorId = 1;
+}
+
+message NewGameResponse {
+  string gameId = 1;
+  string creatorId = 2;
+}
+
+message PlayerJoinRequest {
+  string playerId = 1;
+  string gameId = 2;
+}
+
+message PlayerJoinResponse {
+  string playerId = 1;
+  string gameId = 2;
+}
+
+message PlayerStrikeBoxRequest {
+  string playerId = 1;
+  string gameId = 2;
+  int32 row = 3;
+  int32 column = 4;
+}
+
+message PlayerStrikeBoxResponse {
+  string playerId = 1;
+  string gameId = 2;
+}
+
+message GameStartRequest {
+  string gameId = 1;
+}
+
+message GameStartResponse {
+  string gameId = 1;
+  string playerId = 2;
+}

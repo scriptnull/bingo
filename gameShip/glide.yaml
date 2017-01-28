@@ -1,0 +1,11 @@
+package: github.com/scriptnull/bingo/gameShip
+import:
+- package: google.golang.org/grpc
+  version: ~1.0.5
+- package: github.com/golang/protobuf
+  subpackages:
+  - proto
+  - protoc-gen-go
+- package: github.com/satori/go.uuid
+  version: ~1.1.0
+- package: github.com/uber-go/zap
