@@ -46,6 +46,12 @@ client.newGame({ creatorId: 'player-1'}, function (err, res) {
             console.log('player-2 strikes r2 c2 ')
             console.log(err);
             console.log(res);
+            client.playerBingo({ gameId: gameId, playerId: 'player-2'}, function (err, res) {
+              console.log('*********************')
+              console.log('player-2 bingoes')
+              console.log(err);
+              console.log(res);
+            })
           })
         })
       })

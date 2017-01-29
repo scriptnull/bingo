@@ -12,13 +12,16 @@ import (
 
 // PlayerJoin allows player to join a game
 func (s *GameShipRPCServer) PlayerJoin(ctx context.Context, in *gameShipRpc.PlayerJoinRequest) (*gameShipRpc.PlayerJoinResponse, error) {
-	s.Logger.Info("Start PlayerJoin", zap.Object("PlayerJoinRequest", in))
+	var funcName = zap.String("FuncName", "actions|PlayerJoin|")
+	s.Logger.Info("funcEvent", funcName, zap.String("Event", "Start"))
+	s.Logger.Debug("funcVariable", funcName, zap.Object("PlayerJoinRequest", in))
 
 	var newPlayer = game.NewPlayer(in.PlayerId)
 
 	// game presence check
 	reqGame, err := s.GameStore.GetByGameID(in.GameId)
 	if err != nil {
+		s.Logger.Error("funcError", funcName, zap.Error(err))
 		return nil, err
 	}
 
@@ -31,6 +34,7 @@ func (s *GameShipRPCServer) PlayerJoin(ctx context.Context, in *gameShipRpc.Play
 		}
 	}
 	if alreadyJoined {
+		s.Logger.Error("funcError", funcName, zap.Error(err))
 		return nil, errors.New("PlayerAlreadyJoined")
 	}
 
@@ -40,6 +44,7 @@ func (s *GameShipRPCServer) PlayerJoin(ctx context.Context, in *gameShipRpc.Play
 		GameId: reqGame.ID,
 	}
 
-	s.Logger.Info("End PlayerJoin", zap.Object("PlayerJoinResponse", result))
+	s.Logger.Debug("funcVariable", funcName, zap.Object("PlayerJoinResponse", result))
+	s.Logger.Info("funcEvent", funcName, zap.String("Event", "End"))
 	return result, nil
 }

@@ -13,7 +13,7 @@ type Game struct {
 	GameLoop           *time.Timer
 	currentPlayerIndex int
 	CurrentPlayer      *Player
-	GameResults        []GameResult
+	Results            []*Result
 	Mode               Mode
 }
 
@@ -68,6 +68,24 @@ func (g *Game) PlayerStrike(p *Player, rowIndex, columnIndex int32) error {
 	// start the next turn
 	g.startNextTurn()
 	return nil
+}
+
+// PlayerBingo executes for a player, when he tries to press bingo in frontend
+func (g *Game) PlayerBingo(p *Player) (*Result, error) {
+	err := p.Bingo()
+
+	if err != nil {
+		return nil, err
+	}
+
+	var result = &Result{
+		Position: int32(len(g.Results)),
+		Player:   p,
+	}
+
+	g.Results = append(g.Results, result)
+
+	return result, nil
 }
 
 // GetPlayerByID gets player in a game by ID

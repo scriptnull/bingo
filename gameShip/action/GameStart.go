@@ -9,22 +9,25 @@ import (
 
 // GameStart starts the game
 func (s *GameShipRPCServer) GameStart(ctx context.Context, in *gameShipRpc.GameStartRequest) (*gameShipRpc.GameStartResponse, error) {
-	s.Logger.Info("Start GameStart", zap.Object("GameStartRequest", in))
+	var funcName = zap.String("FuncName", "actions|GameStart|")
+	s.Logger.Info("funcEvent", funcName, zap.String("Event", "Start"))
+	s.Logger.Debug("funcVariable", funcName, zap.Object("GameStartRequest", in))
 
 	// game presence check
 	reqGame, err := s.GameStore.GetByGameID(in.GameId)
 	if err != nil {
+		s.Logger.Error("funcError", funcName, zap.Error(err))
 		return nil, err
 	}
 
 	reqGame.Start()
 
-	s.Logger.Debug("CurrentPlayer", zap.Object("reqGame.CurrentPlayer", reqGame.CurrentPlayer))
-
 	var result = &gameShipRpc.GameStartResponse{
 		GameId:   reqGame.ID,
 		PlayerId: reqGame.CurrentPlayer.ID,
 	}
-	s.Logger.Info("End GameStart", zap.Object("GameStartResponse", result))
+
+	s.Logger.Debug("funcVariable", funcName, zap.Object("GameStartResponse", result))
+	s.Logger.Info("funcEvent", funcName, zap.String("Event", "End"))
 	return result, nil
 }

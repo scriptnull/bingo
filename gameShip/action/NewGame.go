@@ -11,7 +11,9 @@ import (
 
 // NewGame creates a Game object and saves in a global store
 func (s *GameShipRPCServer) NewGame(ctx context.Context, in *gameShipRpc.NewGameRequest) (*gameShipRpc.NewGameResponse, error) {
-	s.Logger.Info("Start NewGame", zap.Object("NewGameRequest", in))
+	var funcName = zap.String("FuncName", "actions|NewGame|")
+	s.Logger.Info("funcEvent", funcName, zap.String("Event", "Start"))
+	s.Logger.Debug("funcVariable", funcName, zap.Object("NewGameRequest", in))
 
 	var creator = game.NewPlayer(in.CreatorId)
 
@@ -22,6 +24,7 @@ func (s *GameShipRPCServer) NewGame(ctx context.Context, in *gameShipRpc.NewGame
 	}
 
 	if err := s.GameStore.Add(newGame); err != nil {
+		s.Logger.Error("funcError", funcName, zap.Error(err))
 		return nil, err
 	}
 
@@ -29,6 +32,7 @@ func (s *GameShipRPCServer) NewGame(ctx context.Context, in *gameShipRpc.NewGame
 		GameId: newGame.ID,
 	}
 
-	s.Logger.Info("End NewGame", zap.Object("NewGameResponse", result))
+	s.Logger.Debug("funcVariable", funcName, zap.Object("NewGameResponse", result))
+	s.Logger.Info("funcEvent", funcName, zap.String("Event", "End"))
 	return result, nil
 }

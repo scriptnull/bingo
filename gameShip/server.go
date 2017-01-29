@@ -18,8 +18,8 @@ const (
 func main() {
 
 	var logger = zap.New(
-		zap.NewJSONEncoder(),
-		zap.DebugLevel,
+		zap.NewTextEncoder(),
+		zap.InfoLevel,
 	)
 
 	var server = &action.GameShipRPCServer{

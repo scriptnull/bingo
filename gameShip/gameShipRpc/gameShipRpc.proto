@@ -4,9 +4,11 @@ package gameShipRpc;
 
 service gameShipRpc {
   rpc NewGame (NewGameRequest) returns (NewGameResponse);
+  rpc GameStart (GameStartRequest) returns (GameStartResponse);
+
   rpc PlayerJoin (PlayerJoinRequest) returns (PlayerJoinResponse);
   rpc PlayerStrikeBox (PlayerStrikeBoxRequest) returns (PlayerStrikeBoxResponse);
-  rpc GameStart (GameStartRequest) returns (GameStartResponse);
+  rpc PlayerBingo (PlayerBingoRequest) returns (PlayerBingoResponse);
 }
 
 message NewGameRequest {
@@ -16,6 +18,15 @@ message NewGameRequest {
 message NewGameResponse {
   string gameId = 1;
   string creatorId = 2;
+}
+
+message GameStartRequest {
+  string gameId = 1;
+}
+
+message GameStartResponse {
+  string gameId = 1;
+  string playerId = 2;
 }
 
 message PlayerJoinRequest {
@@ -40,11 +51,13 @@ message PlayerStrikeBoxResponse {
   string gameId = 2;
 }
 
-message GameStartRequest {
-  string gameId = 1;
+message PlayerBingoRequest {
+  string playerId = 1;
+  string gameId = 2;
 }
 
-message GameStartResponse {
-  string gameId = 1;
-  string playerId = 2;
+message PlayerBingoResponse {
+  string playerId = 1;
+  string gameId = 2;
+  int32 Position = 3;
 }
