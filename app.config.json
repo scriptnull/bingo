@@ -1,0 +1,13 @@
+{
+  "gameShip": {
+    "port": 50051
+  },
+  "gameApi": {
+    "mode": "dev",
+    "port": 50052,
+    "dbHost": "172.17.0.1",
+    "dbName": "bingodb",
+    "dbUser": "bingouser",
+    "dbPassword": "bingopassword"
+  }
+}
