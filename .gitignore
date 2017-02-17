@@ -25,3 +25,4 @@ _testmain.go
 
 vendor/
 node_modules/
+app.config.json

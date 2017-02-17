@@ -1,0 +1,21 @@
+{
+  "name": "game-web",
+  "version": "1.0.0",
+  "description": "web server that serves bingo game ",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "ejs": "^2.5.6",
+    "express": "^4.14.1",
+    "express-session": "^1.15.1",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "underscore": "^1.8.3"
+  }
+}
